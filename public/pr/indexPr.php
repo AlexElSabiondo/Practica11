@@ -55,6 +55,7 @@
         <ul>
             <li><a href="./tema9/ejemplo9.1.php">Ejemplo 1</a></li>
             <li><a href="./tema9/ejemplo9.2.php">Ejemplo 2</a></li>
+            <li><a href="./tema9/ejemplo9.3.php">Ejemplo 3</a></li>
         </ul>
     </li>
 
