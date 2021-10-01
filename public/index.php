@@ -74,7 +74,7 @@
     <tr>
         <td><a href="hojaEjercicios1/ejercicio1.7.php">Ejercicio 7</a></td>
         <td><a href="hojaEjercicios2/ejercicio2.7.php">Ejercicio 7</a></td>
-        <td>Ejercicio 7</td>
+        <td><a href="hojaEjercicios3/ejercicio3.7.php">Ejercicio 7</a></td>
     </tr>
     <tr>
         <td><a href="hojaEjercicios1/ejercicio1.8.php">Ejercicio 8</a></td>
