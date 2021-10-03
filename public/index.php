@@ -94,11 +94,13 @@
     <thead class="table-dark" style="text-align: center;">
     <tr>
         <th scope="col">Ejercicios Profesor</th>
+        <th scope="col">Practicas</th>
     </tr>
     </thead>
     <tbody style="text-align:center;">
     <tr>
         <td><a href="./pr/indexPr.php">Ejercicios</a></td>
+        <td><a href="./practicas/citasMedicas.php">Citas Médicas</a></td>
     </tr>
     </tbody>
 </table>

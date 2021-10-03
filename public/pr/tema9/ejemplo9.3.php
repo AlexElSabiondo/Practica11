@@ -10,7 +10,9 @@
 
 $archivo = "citas.txt";
 
-echo '<pre>' . var_dump(file($archivo)) . '</pre>';
+echo '<pre>';
+var_dump(file($archivo));
+echo '</pre>';
 
 // Si se envía algo por la cabecera POST
 if($_SERVER['REQUEST_METHOD'] == 'POST'){

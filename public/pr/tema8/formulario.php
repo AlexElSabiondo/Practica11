@@ -1,9 +1,11 @@
+
+
 <form action="<?= $_SERVER['PHP_SELF']?>" method="post">
 
     <p>
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre"
-            <?php mostrarCampo($_POST['nombre'])?>
+            <?php mostrarCampo('nombre') ?>
                placeholder="Introduce tu nombre">
         <?php mostrarErrorCampo('nombre', $errores);?>
     </p>
