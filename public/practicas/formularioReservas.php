@@ -12,11 +12,11 @@
     Teléfono: <input type="tel" name="telefono" <?php mostrar_campos_introducidos('telefono'); ?> placeholder="622408292">
     <?php mostrar_error($errores, 'telefono'); ?> <br> <br>
 
-    Fecha: <input type="date" name="calendario" value=""> <br> <br>
+    Fecha: <input type="date" name="calendario" <?php mostrar_campos_introducidos('calendario'); ?>> <br> <br>
 
-    Hora: <input type="time" name="hora" <?php mostrar_campos_introducidos('hora'); ?>>
+    <?php mostrar_hora(); ?>
+
     <?php mostrar_error($errores, 'hora'); ?> <br> <br>
-    <h4><?php mostrar_horas_disponible(horas_disponibles());?></h4>
 
     <input type="submit" name="reservar" value="Reservar">
 

@@ -76,23 +76,6 @@ function validar_telefono($telefono){
     return $errorTelefono;
 }
 
-function validar_hora($hora, $horasDisponibles){
-
-    foreach ($horasDisponibles as $horaDisponible){
-
-        if($horaDisponible == $hora){
-
-            $horaCorrecta = true;
-
-        }
-
-    }
-
-    $errorHora = $horaCorrecta == true ? '' : 'La hora introducida no está disponible';
-
-    return $errorHora;
-}
-
 function comprobar_errores($errorNombre, $errorApellidos, $errorEmail, $errorTelefono, $errorHora){
 
     $errores = [];
@@ -150,6 +133,30 @@ function mostrar_campos_introducidos($campo){
 
 }
 
+function mostrar_hora(){
+
+    $arrayHoras = array('09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00');
+
+    echo '<select name="hora">';
+
+    foreach ($arrayHoras as $hora){
+
+        if($_POST['hora'] == $hora){
+
+            echo '<option value="' . $hora . '" selected>' . $hora . '</option>';
+
+        } else{
+
+            echo '<option value="' . $hora . '">' . $hora . '</option>';
+
+        }
+
+    }
+
+    echo '</select>';
+
+}
+
 function comprobar_solo_letras($texto){
 
     $longitud = mb_strlen($texto);
@@ -178,11 +185,12 @@ function añadir_cita(){
     $archivo = "./citas.txt";
 
     $ficheroCitas = fopen($archivo, 'a+');
-    $infoCitas = 'Nombre:' . $_POST['nombre'] . ' Apellidos:' . $_POST['apellidos'] . ' Email:' . $_POST['email'] . ' Telefono:' . $_POST['telefono'] . ' Fecha:' . $_POST['calendario'] . ' Hora:' . $_POST['hora'] . "\n";
+    $infoCitas = 'Nombre:' . $_POST['nombre'] . ' Apellidos:' . $_POST['apellidos'] . ' Email:' . $_POST['email'] . ' Telefono:' . $_POST['telefono'] . ' Fecha:' . $_POST['calendario']. ' Hora:' . $_POST['hora'] . "\n";
     fwrite($ficheroCitas, $infoCitas);
     fclose($ficheroCitas);
 
     echo '<h3>La cita se ha reservado correctamente</h3>';
+    echo '<h5><a href="./citasMedicas.php">Volver al formulario</a></h5>';
 
 }
 
@@ -198,21 +206,39 @@ function separar_citas(){
         fclose($ficheroCitas);
 
         $citasConfirmadas = explode("\n", $texto);
+        unset($citasConfirmadas[count($citasConfirmadas) - 1]);
+        $citasConfirmadas = array_values($citasConfirmadas);
 
     }
 
     return $citasConfirmadas;
 }
 
-function horas_disponibles(){
+function separar_dias($citasConfirmadas){
 
-    $horasDisponibles = array('09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30');
+    foreach ($citasConfirmadas as $cita){
 
-    $citasConfirmadas = separar_citas();
+        $fecha = substr($cita, strpos($cita, 'Fecha:'), 16);
+        $fecha = substr($fecha, 6, 10);
+
+        $diasCitasConfirmadas[$fecha] = '';
+
+    }
+
+    return $diasCitasConfirmadas;
+}
+
+function asignar_horas_dias($citasConfirmadas, $horasDisponibles){
+
+    $diasConHora = [];
 
     foreach ($citasConfirmadas as $cita){
 
         $i = 0;
+
+        $fecha = substr($cita, strpos($cita, 'Fecha:'), 16);
+        $fecha = substr($fecha, 6, 10);
+
         $hora = substr($cita, strpos($cita, 'Hora:'), 10);
         $hora = substr($hora, 5, 5);
 
@@ -221,6 +247,7 @@ function horas_disponibles(){
             if($hora == $horaDisponible){
 
                 unset($horasDisponibles[$i]);
+                $horasDisponibles = array_values($horasDisponibles);
 
             }
 
@@ -228,30 +255,74 @@ function horas_disponibles(){
 
         }
 
+        $diasConHora[$fecha] = $horasDisponibles;
+
     }
 
-    return $horasDisponibles;
+    return $diasConHora;
+
 }
 
-function mostrar_horas_disponible($horas){
+function horas_disponibles($diaCitasConfirmadas){
 
-    if($horas){
+    foreach ($diaCitasConfirmadas as $dia){
 
-        foreach ($horas as $hora){
+        if($diaCitasConfirmadas[$dia]){
 
-            $horasDisponibles .= $hora . ' / ';
+            $horasDisponibles = $diaCitasConfirmadas[$dia];
+            $diasConHora = asignar_horas_dias(separar_citas(), $horasDisponibles);
+
+        } else {
+
+            $horasDisponibles = array('09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00');
+            $diasConHora = asignar_horas_dias(separar_citas(), $horasDisponibles);
 
         }
 
-        echo '<h4>Horas disponibles</h4>';
-        echo $horasDisponibles . '<br> <br>';
+    }
 
-    } else{
+    return $diasConHora;
+}
 
-        echo '<h4>No hay horas disponibles</h4>';
+function validar_hora($dia, $diasConHora){
+
+    $validador = false;
+
+    if($diasConHora[$dia]){
+
+        foreach ($diasConHora[$dia] as $hora){
+
+            if($hora == $_POST['hora']){
+
+                $validador = true;
+
+            }
+
+        }
+
+    } else {
+
+        $horasDisponibles = array('09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00');
+
+        foreach ($horasDisponibles as $hora){
+
+            if($hora == $_POST['hora']){
+
+                $validador = true;
+
+            }
+
+        }
 
     }
 
+    if(!$validador){
+
+        $errorHora = 'Esta hora ya ha sido reservada';
+
+    }
+
+    return $errorHora;
 }
 
 ?>
