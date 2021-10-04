@@ -2,31 +2,29 @@
 
 include 'funciones.php';
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-$errorNombre = validar_nombre($_POST['nombre']);
-$errorApellidos = validar_apellidos($_POST['apellidos']);
-$errorEmail = validar_email($_POST['email']);
-$errorTelefono = validar_telefono($_POST['telefono']);
+    $errorNombre = validar_nombre($_POST['nombre']);
+    $errorApellidos = validar_apellidos($_POST['apellidos']);
+    $errorEmail = validar_email($_POST['email']);
+    $errorTelefono = validar_telefono($_POST['telefono']);
+    $errorHora = validar_hora($_POST['hora'], horas_disponibles());
+    $errores = comprobar_errores($errorNombre, $errorApellidos, $errorEmail, $errorTelefono, $errorHora);
 
-if($errorNombre|| $errorApellidos|| $errorEmail || $errorTelefono){
+    if (!$errores) {
 
-    $errores = comprobar_errores($errorNombre, $errorApellidos, $errorEmail, $errorTelefono);
+        añadir_cita();
+        separar_citas();
 
-    include './formularioReservas.php';
+    } else {
 
-} else{
+        include './formularioReservas.php';
 
-    echo 'Todo correcto';
-
-}
-
-
+    }
 
 } else {
 
     include './formularioReservas.php';
 
 }
-
 ?>

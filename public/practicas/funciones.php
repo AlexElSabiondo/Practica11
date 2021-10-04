@@ -31,7 +31,7 @@ function validar_apellidos($apellidos){
 
     } else if($apellidoValido == false){
 
-    $error_apellidos = 'Solo se admiten letras';
+        $error_apellidos = 'Solo se admiten letras';
 
     } else if (mb_strlen($apellidos) < 6){
 
@@ -76,7 +76,24 @@ function validar_telefono($telefono){
     return $errorTelefono;
 }
 
-function comprobar_errores($errorNombre, $errorApellidos, $errorEmail, $errorTelefono){
+function validar_hora($hora, $horasDisponibles){
+
+    foreach ($horasDisponibles as $horaDisponible){
+
+        if($horaDisponible == $hora){
+
+            $horaCorrecta = true;
+
+        }
+
+    }
+
+    $errorHora = $horaCorrecta == true ? '' : 'La hora introducida no está disponible';
+
+    return $errorHora;
+}
+
+function comprobar_errores($errorNombre, $errorApellidos, $errorEmail, $errorTelefono, $errorHora){
 
     $errores = [];
 
@@ -104,16 +121,22 @@ function comprobar_errores($errorNombre, $errorApellidos, $errorEmail, $errorTel
 
     }
 
+    if($errorHora){
+
+        $errores['hora'] = $errorHora;
+
+    }
+
     return $errores;
 }
 
 function mostrar_error($errores, $campo){
 
-if(isset($errores[$campo])){
+    if(isset($errores[$campo])){
 
-    echo $errores[$campo];
+        echo $errores[$campo];
 
-}
+    }
 
 }
 
@@ -148,6 +171,87 @@ function comprobar_solo_letras($texto){
     }
 
     return $textoValido;
+}
+
+function añadir_cita(){
+
+    $archivo = "./citas.txt";
+
+    $ficheroCitas = fopen($archivo, 'a+');
+    $infoCitas = 'Nombre:' . $_POST['nombre'] . ' Apellidos:' . $_POST['apellidos'] . ' Email:' . $_POST['email'] . ' Telefono:' . $_POST['telefono'] . ' Fecha:' . $_POST['calendario'] . ' Hora:' . $_POST['hora'] . "\n";
+    fwrite($ficheroCitas, $infoCitas);
+    fclose($ficheroCitas);
+
+    echo '<h3>La cita se ha reservado correctamente</h3>';
+
+}
+
+function separar_citas(){
+
+    $archivo = "./citas.txt";
+    $longitudArchivo = filesize($archivo);
+
+    if($longitudArchivo != 0){
+
+        $ficheroCitas = fopen($archivo, 'r');
+        $texto = fread($ficheroCitas, $longitudArchivo);
+        fclose($ficheroCitas);
+
+        $citasConfirmadas = explode("\n", $texto);
+
+    }
+
+    return $citasConfirmadas;
+}
+
+function horas_disponibles(){
+
+    $horasDisponibles = array('09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30');
+
+    $citasConfirmadas = separar_citas();
+
+    foreach ($citasConfirmadas as $cita){
+
+        $i = 0;
+        $hora = substr($cita, strpos($cita, 'Hora:'), 10);
+        $hora = substr($hora, 5, 5);
+
+        foreach ($horasDisponibles as $horaDisponible){
+
+            if($hora == $horaDisponible){
+
+                unset($horasDisponibles[$i]);
+
+            }
+
+            $i++;
+
+        }
+
+    }
+
+    return $horasDisponibles;
+}
+
+function mostrar_horas_disponible($horas){
+
+    if($horas){
+
+        foreach ($horas as $hora){
+
+            $horasDisponibles .= $hora . ' / ';
+
+        }
+
+        echo '<h4>Horas disponibles</h4>';
+        echo $horasDisponibles . '<br> <br>';
+
+    } else{
+
+        echo '<h4>No hay horas disponibles</h4>';
+
+    }
+
 }
 
 ?>
