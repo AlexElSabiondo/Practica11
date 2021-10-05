@@ -3,21 +3,21 @@
 class Enlace
 {
 
-    private $name;
-    private $class;
+    private $texto;
+    private $url;
 
+    public function __construct($texto, $url)
+    {
 
-public function __construct($href, $atributos)
-{
-    $this->href = $href;
-    $this->atributos = $atributos;
+        $this->texto = $texto;
+        $this->url = $url;
 
-}
+    }
 
 
     public function mostrar(){
 
-        $miEnlace = '<a href="' . $this->href . '"' . $this->atributos .'</a>';
+        return '<a href="' . $this->url . '">' . $this->texto .'</a>';
 
     }
 

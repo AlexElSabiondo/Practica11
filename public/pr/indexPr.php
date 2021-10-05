@@ -62,7 +62,7 @@
     <li>
         <h4>Ejemplos tema 11</h4>
         <ul>
-            <li><a href="./tema11/Enlace.php">Ejemplo 11</a></li>
+            <li><a href="./tema11/index.php">Ejemplo 11</a></li>
         </ul>
     </li>
 
