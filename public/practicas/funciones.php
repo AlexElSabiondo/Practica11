@@ -76,7 +76,60 @@ function validar_telefono($telefono){
     return $errorTelefono;
 }
 
-function comprobar_errores($errorNombre, $errorApellidos, $errorEmail, $errorTelefono, $errorHora){
+function validar_hora($dia, $diasConHora){
+
+    $validador = false;
+
+    if($diasConHora[$dia]){
+
+        foreach ($diasConHora[$dia] as $hora){
+
+            if($hora == $_POST['hora']){
+
+                $validador = true;
+
+            }
+
+        }
+
+    } else {
+
+        $horasDisponibles = array('09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00');
+
+        foreach ($horasDisponibles as $hora){
+
+            if($hora == $_POST['hora']){
+
+                $validador = true;
+
+            }
+
+        }
+
+    }
+
+    if(!$validador){
+
+        $errorHora = 'Esta hora ya ha sido reservada';
+
+    }
+
+    return $errorHora;
+}
+
+function validar_fecha($fecha){
+
+
+    if(strlen($fecha) == 0){
+
+        $errorFecha = 'Selecciona la fecha de la reserva';
+
+    }
+
+    return $errorFecha;
+}
+
+function comprobar_errores($errorNombre, $errorApellidos, $errorEmail, $errorTelefono, $errorHora, $errorFecha){
 
     $errores = [];
 
@@ -107,6 +160,12 @@ function comprobar_errores($errorNombre, $errorApellidos, $errorEmail, $errorTel
     if($errorHora){
 
         $errores['hora'] = $errorHora;
+
+    }
+
+    if($errorFecha){
+
+        $errores['fecha'] = $errorFecha;
 
     }
 
@@ -185,7 +244,7 @@ function añadir_cita(){
     $archivo = "./citas.txt";
 
     $ficheroCitas = fopen($archivo, 'a+');
-    $infoCitas = 'Nombre:' . $_POST['nombre'] . ' Apellidos:' . $_POST['apellidos'] . ' Email:' . $_POST['email'] . ' Telefono:' . $_POST['telefono'] . ' Fecha:' . $_POST['calendario']. ' Hora:' . $_POST['hora'] . "\n";
+    $infoCitas = 'Nombre:' . $_POST['nombre'] . ' Apellidos:' . $_POST['apellidos'] . ' Email:' . $_POST['email'] . ' Telefono:' . $_POST['telefono'] . ' Fecha:' . $_POST['fecha']. ' Hora:' . $_POST['hora'] . "\n";
     fwrite($ficheroCitas, $infoCitas);
     fclose($ficheroCitas);
 
@@ -282,47 +341,6 @@ function horas_disponibles($diaCitasConfirmadas){
     }
 
     return $diasConHora;
-}
-
-function validar_hora($dia, $diasConHora){
-
-    $validador = false;
-
-    if($diasConHora[$dia]){
-
-        foreach ($diasConHora[$dia] as $hora){
-
-            if($hora == $_POST['hora']){
-
-                $validador = true;
-
-            }
-
-        }
-
-    } else {
-
-        $horasDisponibles = array('09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00');
-
-        foreach ($horasDisponibles as $hora){
-
-            if($hora == $_POST['hora']){
-
-                $validador = true;
-
-            }
-
-        }
-
-    }
-
-    if(!$validador){
-
-        $errorHora = 'Esta hora ya ha sido reservada';
-
-    }
-
-    return $errorHora;
 }
 
 ?>

@@ -12,8 +12,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errorApellidos = validar_apellidos($_POST['apellidos']);
     $errorEmail = validar_email($_POST['email']);
     $errorTelefono = validar_telefono($_POST['telefono']);
-    $errorHora = validar_hora($_POST['calendario'], $diasConHora);
-    $errores = comprobar_errores($errorNombre, $errorApellidos, $errorEmail, $errorTelefono, $errorHora);
+    $errorHora = validar_hora($_POST['fecha'], $diasConHora);
+    $errorFecha = validar_fecha($_POST['fecha']);
+    $errores = comprobar_errores($errorNombre, $errorApellidos, $errorEmail, $errorTelefono, $errorHora, $errorFecha);
 
     if (!$errores) {
 

@@ -12,7 +12,8 @@
     Teléfono: <input type="tel" name="telefono" <?php mostrar_campos_introducidos('telefono'); ?> placeholder="622408292">
     <?php mostrar_error($errores, 'telefono'); ?> <br> <br>
 
-    Fecha: <input type="date" name="calendario" <?php mostrar_campos_introducidos('calendario'); ?>> <br> <br>
+    Fecha: <input type="date" name="fecha" <?php mostrar_campos_introducidos('fecha'); ?>>
+    <?php mostrar_error($errores, 'fecha'); ?> <br> <br>
 
     <?php mostrar_hora(); ?>
 
