@@ -249,7 +249,7 @@ function añadir_cita(){
     fclose($ficheroCitas);
 
     echo '<h3>La cita se ha reservado correctamente</h3>';
-    echo '<h5><a href="./citasMedicas.php">Volver al formulario</a></h5>';
+    echo '<h5><a href="./menuPrincipal.php">Volver al menú principal</a></h5>';
 
 }
 
@@ -341,6 +341,25 @@ function horas_disponibles($diaCitasConfirmadas){
     }
 
     return $diasConHora;
+}
+
+function mostrar_citas($citasConfirmadas){
+
+    $i = 0;
+
+    foreach ($citasConfirmadas as $cita) {
+
+        echo 'Cita ' . ($i + 1) . ': ' . $cita . '<input type="checkbox" name="cita' . $i . '" value="pasada"><br><br>';
+        $i++;
+
+    }
+
+}
+
+function eliminar_cita(){
+
+
+
 }
 
 ?>

@@ -19,6 +19,8 @@
 
     <?php mostrar_error($errores, 'hora'); ?> <br> <br>
 
-    <input type="submit" name="reservar" value="Reservar">
+    <input type="submit" name="reservar" value="Reservar"> <br>
+
+    <h5><a href="./menuPrincipal.php">Volver al menú principal</a></h5>
 
 </form>

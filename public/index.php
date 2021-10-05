@@ -100,7 +100,7 @@
     <tbody style="text-align:center;">
     <tr>
         <td><a href="./pr/indexPr.php">Ejercicios</a></td>
-        <td><a href="./practicas/citasMedicas.php">Citas Médicas</a></td>
+        <td><a href="./practicas/menuPrincipal.php">Citas Médicas</a></td>
     </tr>
     </tbody>
 </table>

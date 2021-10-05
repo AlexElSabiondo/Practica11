@@ -21,7 +21,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         añadir_cita();
         separar_citas();
 
-
     } else {
 
         include './formularioReservas.php';
