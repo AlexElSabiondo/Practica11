@@ -10,12 +10,6 @@
 <br>
 
 <ul>
-    <li>
-        <h4>Ejemplos iniciales</h4>
-        <ul>
-            <li><a href="./ejemplosPr/ejemplo1.php">Ejemplo 1</a></li>
-        </ul>
-    </li>
 
     <li>
         <h4>Hoja de ejercicios nº1</h4>
@@ -62,7 +56,18 @@
     <li>
         <h4>Ejemplos tema 11</h4>
         <ul>
-            <li><a href="./tema11/index.php">Ejemplo 11</a></li>
+            <li><a href="tema11/MigasPan/index.php">Migas Pan</a></li>
+            <li><a href="tema11/Carrito1.0/index.php">Carrito 1.0</a></li>
+            <li><a href="tema11/Carrito2.1/index.php">Carrito 2.1</a></li>
+            <li><a href="tema11/Carrito3.1/index.php">Carrito 3.1</a></li>
+            <li><a href="tema11/MiCarrito/carritoUsuario.php">Mi Carrito</a></li>
+        </ul>
+    </li>
+
+    <li>
+        <h4>Mis pruebas</h4>
+        <ul>
+            <li><a href="./prueba/index.php">Prueba</a></li>
         </ul>
     </li>
 

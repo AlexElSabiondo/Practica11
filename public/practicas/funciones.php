@@ -356,10 +356,4 @@ function mostrar_citas($citasConfirmadas){
 
 }
 
-function eliminar_cita(){
-
-
-
-}
-
 ?>
